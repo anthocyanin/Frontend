@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>echarts14</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts.min.js"></script>
+</head>
+<body>
+	<div id="main" style="width: 800px; height:600px"></div>
+	<script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            xAxis:{
+                data:["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis:{},
+            series:[{
+                name:'销量',
+                type:'bar',
+                data:[5, 20, 36, 10, 10, 20]
+            }]
+        };
+        myChart.setOption(option);
+        myChart.on('click', function(params){
+                window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(params.name));
+        });
+        // // 当前点击的图形元素所属的组件名称，
+        // // 其值如 'series'、'markLine'、'markPoint'、'timeLine' 等。 
+        // componentType: string,
+        // // 系列类型。值可能为：'line'、'bar'、'pie' 等。当 componentType 为 'series' 时有意义。
+        // seriesType: string,
+        // // 系列在传入的 option.series 中的 index。当 componentType 为 'series' 时有意义。
+        // seriesIndex: number,
+        // // 系列名称。当 componentType 为 'series' 时有意义。
+        // seriesName: string,
+        // // 数据名，类目名
+        // name: string,
+        // // 数据在传入的 data 数组中的 index
+        // dataIndex: number,
+        // // 传入的原始数据项
+        // data: Object,
+        // // sankey、graph 等图表同时含有 nodeData 和 edgeData 两种 data，
+        // // dataType 的值会是 'node' 或者 'edge'，表示当前点击在 node 还是 edge 上。
+        // // 其他大部分图表中只有一种 data，dataType 无意义。
+        // dataType: string,
+        // // 传入的数据值
+        // value: number|Array
+        // // 数据图形的颜色。当 componentType 为 'series' 时有意义。
+        // color: string
+	</script>
+
+</body>
+</html>

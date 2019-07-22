@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>my first page</h1>
+<p1 id="demo">my first passage</p1>
+<p2 id="demoo">my second passage</p2>
+<button onclick="myFunction3()">click here2</button>
+<p2 id="demooo"></p2>
+
+<script>
+
+var	pi=3.14;
+var name="Bill Gates";
+var answer='yes i am';
+var x=36;
+var y=47.009;
+var z=12e5;
+var w=12e-6;
+
+var cars=new Array();
+cars[0]="Audi";
+cars[1]="BMW";
+cars[2]="Volvo";
+
+var carss=new Array("Audi","BMW","Volvo");
+var carsss=["Audi","BMW","Volvo"];
+
+var person={
+firstname:"Bill",
+lastname:"Gates",
+id:5566
+};
+
+personn=new Object();
+person.firstname="Bill";
+person.lastname="Gates";
+person.age=56;
+person.eyecolor="blue";
+
+function myFunction1(arg1, arg2)
+{
+alter("welcome"+arg1+", the"+arg2)
+}
+
+function myfunction2(a, b)
+{
+return a*b;
+}
+
+function myFunction3()
+{
+var x;
+var d=new Date().getDay();
+switch(d)
+	{
+	case 0:
+		x="today is sunday";
+		break;
+	case 1:
+		x="today is monday";
+		break;
+	case 2:
+		x="today is Tuesday";
+		break;
+	case 3:
+		x="today is wednesday";
+		break;
+	case 4:
+		x="today is thursday";
+		break;
+	case 5:
+		x="today is friday";
+		break;
+	case 6:
+		x="today is saturday";
+		break;
+	default:
+  		x="Looking forward to the Weekend";
+	}
+document.getElementById("demo").innerHTML=x;
+}
+document.write(person.firstname + person.lastname +"is" + person.age + "and has" + person.eyecolor+ "eye");
+
+document.write(person.lastname+"<br />");
+document.write(person["firstname"]+"<br />");
+
+document.write(pi+"<br>");
+document.write(name+"<br>");
+document.write(answer+"<br>");
+
+document.getElementById("demo").innerHTML="我的第一段 JavaScript";
+document.getElementById("demoo").innerHTML=myFunction(4,3);
+
+
+</script>
+
+<button type="button" onclick="myFunction("Bill gates","CEO")">click here1</button>
+
+<button type="button" onclick="myFunctionn(3, 4)">click here3</button>
+
+</body>	
+
+</html>

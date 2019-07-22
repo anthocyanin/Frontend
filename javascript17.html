@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>你好</title>
+</head>
+<body>
+
+<p id="demo">测试一下</p>
+
+
+<script type="text/javascript">
+function outer() {
+     var  a = 1
+     var  inner = function () {
+     		a += 1
+            console.log(a)
+     }
+    return inner    // inner 就是一个闭包函数，因为他能够访问到outer函数的作用域
+}
+var  inner01 = outer()   // 获得inner闭包函数
+inner01();   //"变量1"
+inner01();
+inner01();
+inner01();  // inner01多次调用已经改变了a的值。
+
+var inner02 = outer()
+inner02();  // innner02 调用时任然是从头开始
+
+</script>
+
+</body>	
+
+</html>

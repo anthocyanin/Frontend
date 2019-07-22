@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="/Users/gonghuidepro/PycharmProjects/awesome-python3-webapp/www/static/css/awesome.css">
+    <link rel="stylesheet" href="/Users/gonghuidepro/PycharmProjects/awesome-python3-webapp/www/static/css/uikit.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="/Users/gonghuidepro/PycharmProjects/awesome-python3-webapp/www/static/js/jquery.min.js"></script>
+    <script src="/Users/gonghuidepro/PycharmProjects/awesome-python3-webapp/www/static/js/sha1.min.js"></script>
+    <script src="/Users/gonghuidepro/PycharmProjects/awesome-python3-webapp/www/static/js/uikit.min.js"></script>
+    <script src="/Users/gonghuidepro/PycharmProjects/awesome-python3-webapp/www/static/js/uikit-icons.min.js"></script>
+    <script src="/Users/gonghuidepro/PycharmProjects/awesome-python3-webapp/www/static/js/sticky.min.js"></script>
+    <script src="/Users/gonghuidepro/PycharmProjects/awesome-python3-webapp/www/static/js/vue.min.js"></script>
+    <script src="/Users/gonghuidepro/PycharmProjects/awesome-python3-webapp/www/static/js/awesome.js"></script>
+    <script>
+        function validateEmail(email){
+        var re = /^[a-z0-9\.\-\_]+\@[a-z0-9\-\_]+(\.[a-z0-9\-\_]+){1,4}$/;
+        return re.test(email.toLowerCase());
+        }
+
+        $(function (){
+            var vm = new Vue({
+                el: '#vm',
+                data:{
+                    name: '',
+                    email: '',
+                    password1: '',
+                    password2: ''
+                },
+                methods:{
+                    onSubmit: function(event){
+                        event.preventDefault();
+                        var $form = $('#vm');
+                        if (! this.name.trim()){
+                            return $form.showFormError('请输入名字');
+                        }
+                        if (! validateEmail(this.email.trim().toLowerCase())){
+                            return $form.showFormError('请输入正确的Email地址');
+                        }
+                        if (this.password1.length < 6){
+                            return $form.showFormError('口令长度至少为6个字符');
+                        }
+                        if (this.password1 !== this.password2){
+                            return $form.showFormError('两次输入的口令不一致');
+                        }
+                        var eamil = this.eamil.trim().toLowerCase();
+                        $form.postJSON('/api/users', {
+                            name: this.name.trim(),
+                            eamil: email,
+                            passwd: CryptoJS.SHA1(eamil + ':' + this.password1).toString()
+                        },function(err, r){
+                            if (err) {
+                                return $form.showFormError(err);
+                            }
+                            return location.assign('/');
+                        });
+                    }
+                }
+            });
+            $('#vm').show();
+        });
+    </script>
+</head>
+<body>
+    <!--"uk-"开头的都是UIkit里的组件，具体请参考UIkit官网的Documents详解-->
+    <!--uk-visible@m是大于中等尺寸屏幕时显示的UI-->
+    <div class="uk-margin uk-visible@m" style="background-color:rgba(100,150,185,0);">
+        <div class="uk-container uk-container-medium">
+        <!--导航栏UI-->
+            <nav class="uk-navbar-container" uk-navbar style="background-color:rgba(255,255,255,0);">
+                <div class="uk-navbar-left uk-margin-medium-top uk-margin-medium-bottom">
+                    <a class="uk-navbar-item uk-logo uk-margin-left" href="/">
+                        <!--此处uk-icon为图标,读者可以选UIkit自带icon,也可以添加自定义icon重新打包uk-icon.js,详见官网Documentation-->
+                        <span class="uk-icon uk-margin-small-right" uk-icon="pagekit" ratio="2"></span>
+                         Awesome  
+                    </a>
+                    <ul class="uk-navbar-nav">
+                        <li><a href="/"> Article | 日志</a></li>
+                        <li><a href="https://www.liaoxuefeng.com/"> Tutorial | 教程</a></li>
+                        <li><a href="https://github.com/michaelliao/"> Coding | 源码</a></li>
+                    </ul>
+                </div>
+                <div class="uk-navbar-right uk-margin-medium-top uk-margin-medium-bottom">
+                    <ul class="uk-navbar-nav">
+<!--                     {% if __user__ %}
+                        <li class="uk-parent" data-uk-dropdown>
+                        <a href="#0"><i class="uk-icon-user"></i>{{ __user__.name }}</a>
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li><a href="/signout"><i class="uk-icon-sign-out"></i> 登出</a></li>
+                            </ul>
+                        </div>
+                        </li>
+                    {% else %} -->
+                        <li><a href="/signin"> 登陆</a></li>
+                        <li><a href="/register"> 注册</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="uk-container uk-container-medium">
+        <div class="uk-grid">
+            <div class="uk-width-2-3">
+                <h1>欢迎注册！</h1>
+                <form id="vm" v-on:submit="onSubmit" class="uk-form uk-form-stacked">
+                    <div class="uk-alert uk-alert-danger uk-hidden"></div>
+                    <div class="uk-form-row">
+                        <label class="uk-form-label">名字:</label>
+                        <div class="uk-form-controls">
+                            <input v-model="name" type="text" maxlength="50" placeholder="名字" class="uk-width-1-1">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label class="uk-form-label">电子邮件:</label>
+                        <div class="uk-form-controls">
+                            <input v-model="email" type="text" maxlength="50" placeholder="your-name@example.com" class="uk-width-1-1">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label class="uk-form-label">输入口令:</label>
+                        <div class="uk-form-controls">
+                            <input v-model="password1" type="password" maxlength="50" placeholder="输入口令" class="uk-width-1-1">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label class="uk-form-label">重复口令:</label>
+                        <div class="uk-form-controls">
+                            <input v-model="password2" type="password" maxlength="50" placeholder="重复口令" class="uk-width-1-1">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <button type="submit" class="uk-button uk-button-primary"><i class="uk-icon-user"></i> 注册</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-margin-large-top" style="background-color:#eee; border-top:1px solid #ccc;">
+        <div class="uk-container uk-container-center uk-text-center">
+            <div class="uk-panel uk-margin-top uk-margin-bottom">
+                <p>
+                    <a target="_blank" href="https://github.com/" class="uk-icon-button uk-margin-small-right" ratio="1.1" uk-icon="github"></a>
+                    <a target="_blank" href="https://music.163.com/" class="uk-icon-button uk-margin-small-right" ratio="1.2" uk-icon="instagram"></a>
+                    <a target="_blank" href="http://www.linkedin.com" class="uk-icon-button uk-margin-small-right" ratio="1.2" uk-icon="linkedin"></a>
+                    <a target="_blank" href="https://weibo.com/" class="uk-icon-button uk-margin-small-right" ratio="1.2" uk-icon="twitter"></a>
+                </p>
+                <p>Powered by <a href="http://awesome.liaoxuefeng.com">Awesome Python Webapp</a>. Copyright &copy; 2019.
+                    [<a href="/manage/" target="_blank">Manage</a>]</p>
+                <p><a href="http://www.liaoxuefeng.com/" target="_blank">www.liaoxuefeng.com</a>. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

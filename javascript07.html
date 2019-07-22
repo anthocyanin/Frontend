@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+var para=document.createElement("p");
+var node=document.createTextNode("这是一个新段落。");
+para.appendChild(node);
+
+var element=document.getElementById("div1");
+element.appendChild(para);
+
+function myChange()
+{
+var x=document.getElementById("fname");
+	x.value=x.value.toUpperCase();
+}
+
+function mOver(obj)
+{
+obj.innerHTML="谢谢";
+}
+
+function mOut(obj)
+{
+obj.innerHTML="把鼠标移到上面";
+}
+
+function mDown(obj)
+{
+obj.style.backgroundColor="#1ec5e5";
+obj.innerHTML="释放鼠标"
+}
+function mUp(obj)
+{
+obj.style.backgroundColor="red";
+obj.innerHTML="点按鼠标"
+}
+
+</script>
+</head>
+
+
+<body>
+
+请输入英文字母：<input type="text" id="fname" onchange="myChange()">
+<p>当你离开输入字段时，会触发将文本转换为大写字母</p>
+
+<div onmouseover="mOver(this)" onmouseout="mOut(this)" 
+style="background-color:green;width:120px;height:20px;padding:40px;color:#ffffff;">
+把鼠标移到上面
+</div>
+
+<div onmousedown="mDown(this)" onmouseup="mUp(this)" style="background-color:red;color:#ffffff;width:90px;height:20px;padding:40px;font-size:12px;">
+点按这里观察长按和松手变化
+</div>
+
+<h1 onmouseover="style.color='red'" onmouseout="style.color='blue'">请把鼠标移到这段文本上</h1>
+
+<div id="div1">
+<p id="p2">这是一个段落。</p>
+<p id="p1">这又是一个段落。</p>
+</div>
+
+</body>
+</html>

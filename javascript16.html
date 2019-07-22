@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+
+
+<body>
+
+<div id="div1">
+<p id="p1">this is paragarp</p>
+<p id="p2">this is another paragarp</p>
+</div>
+
+<script type="text/javascript">
+
+var para=document.createElement("p");
+var node=document.createTextNode("this is new paragarp");
+para.appendChild(node);
+
+var element=document.getElementById("div1");
+var child=document.getElementById("p1");
+element.insertBefore(para,child);
+element.replaceChild(para,child);
+
+</script>
+
+
+</body>
+</html>
